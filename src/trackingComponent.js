@@ -25,6 +25,8 @@ useEffect(()=>{
     }
 
     function runDetection() {
+        video.height=window.innerHeight
+        video.width=window.innerWidth
         model.detect(video).then(predictions => {
             console.log("Predictions: ", predictions);
             model.renderPredictions(predictions, canvas, context, video);
@@ -63,7 +65,7 @@ useEffect(()=>{
     <div>
         <h1>tracking</h1>
         <div id="updatenote"> loading model ..</div>
-        <video autoplay="autoplay" id="myvideo" style={{display:"none"}}></video>
+        <video autoplay="autoplay" id="myvideo" style={{display:"none", width:"100%", height:"100%"}}></video>
         <canvas id="canvas"></canvas>
     </div>
   );

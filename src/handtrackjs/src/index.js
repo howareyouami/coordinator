@@ -216,9 +216,19 @@ export class ObjectDetection {
       context.fillRect(predictions[i].bbox[0], predictions[i].bbox[1] - 17, predictions[i].bbox[2], 17)
       context.rect(...predictions[i].bbox);
 
+      //circle
+      const bbox = predictions[i].bbox
+      const width = bbox[2]
+      const height = bbox[3]
+
+      const centerX = width/2 + bbox[0]
+      const centerY = height/2 + bbox[1]
+      const radius = (width+height)/4
+
+      console.log("centerX",centerX,"centerY",centerY,"radius",radius,"width",width,"height",height,)
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      
       // draw a dot at the center of bounding box
-
-
       context.lineWidth = 1;
       context.strokeStyle = '#0063FF';
       context.fillStyle = "#0063FF" // "rgba(244,247,251,1)";
@@ -229,6 +239,7 @@ export class ObjectDetection {
         predictions[i].score.toFixed(3) + ' ' + " | hand",
         predictions[i].bbox[0] + 5,
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
+      debugger;      
     }
 
     // Write FPS to top left
