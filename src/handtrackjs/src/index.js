@@ -22,6 +22,11 @@ const defaultParams = {
   modelType: "ssdlitemobilenetv2"
 }
 
+const radiusData = {
+  max:null,
+  min: null
+}
+
 export async function load(params) {
   let modelParams = Object.assign({}, defaultParams, params);
   // console.log(modelParams) 
@@ -75,7 +80,6 @@ export class ObjectDetection {
     this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
     this.modelParams = modelParams
   }
-
   async load() {
     this.fps = 0
     this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
@@ -193,7 +197,23 @@ export class ObjectDetection {
     return this.modelParams;
   }
 
-  renderPredictions(predictions, canvas, context, mediasource) {
+  renderPredictions(predictions, canvas, context, mediasource, setInputCoordiantes) {
+
+
+    const findRadiusData=(radius)=>{
+      if(radiusData.max===null) {
+        radiusData.max=radius
+        radiusData.min=radius
+      }
+      else {
+        if(radius>radiusData.max){
+          radiusData.max=radius
+        } else if (radius<radiusData.min) {
+          radiusData.min=radius
+        }
+      }
+      console.log("radiusData:",radiusData)
+    }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
@@ -224,6 +244,8 @@ export class ObjectDetection {
       const centerX = width/2 + bbox[0]
       const centerY = height/2 + bbox[1]
       const radius = (width+height)/4
+      
+      findRadiusData(radius)
 
       console.log("centerX",centerX,"centerY",centerY,"radius",radius,"width",width,"height",height,)
       context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
@@ -239,7 +261,7 @@ export class ObjectDetection {
         predictions[i].score.toFixed(3) + ' ' + " | hand",
         predictions[i].bbox[0] + 5,
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
-      debugger;      
+      setInputCoordiantes({radius: radius})
     }
 
     // Write FPS to top left

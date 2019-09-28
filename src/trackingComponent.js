@@ -3,7 +3,7 @@ import './App.css';
 import * as handTrack from './handtrackjs/src/index';
  
 
-function TrackingComponent() {
+function TrackingComponent(props) {
 
 useEffect(()=>{
     const video = document.getElementById("myvideo");
@@ -29,7 +29,7 @@ useEffect(()=>{
         video.width=window.innerWidth
         model.detect(video).then(predictions => {
             console.log("Predictions: ", predictions);
-            model.renderPredictions(predictions, canvas, context, video);
+            model.renderPredictions(predictions, canvas, context, video, props.setInputCoordiantes)
             requestAnimationFrame(runDetection);
         });
     }
@@ -65,7 +65,7 @@ useEffect(()=>{
     <div>
         <h1>tracking</h1>
         <div id="updatenote"> loading model ..</div>
-        <video autoplay="autoplay" id="myvideo" style={{display:"none", width:"100%", height:"100%"}}></video>
+        <video autoPlay="autoplay" id="myvideo" style={{display:"none", width:"100%", height:"100%"}}></video>
         <canvas id="canvas"></canvas>
     </div>
   );
