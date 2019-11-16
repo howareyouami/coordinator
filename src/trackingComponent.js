@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import * as handTrack from './handtrackjs/src/index';
+import * as handTrack from 'handtrackjs';
  
 
 function TrackingComponent(props) {
@@ -28,6 +28,43 @@ useEffect(()=>{
         video.height=window.innerHeight
         video.width=window.innerWidth
         model.detect(video).then(predictions => {
+            const radiusData = {
+                max:null,
+                min: null
+            }
+
+            const findRadiusData=(radius)=>{
+                if(radiusData.max===null) {
+                  radiusData.max=radius
+                  radiusData.min=radius
+                }
+                else {
+                  if(radius>radiusData.max){
+                    radiusData.max=radius
+                  } else if (radius<radiusData.min) {
+                    radiusData.min=radius
+                  }
+                }
+                console.log("radiusData:",radiusData)
+              }
+          
+              for (let i = 0; i < predictions.length; i++) {
+                //circle
+                const bbox = predictions[i].bbox
+                const width = bbox[2]
+                const height = bbox[3]
+          
+                const centerX = width/2 + bbox[0]
+                const centerY = height/2 + bbox[1]
+                const radius = (width+height)/4
+                
+                findRadiusData(radius)
+          
+                console.log("centerX",centerX,"centerY",centerY,"radius",radius,"width",width,"height",height,)
+                props.setInputCoordiantes({radius: radius})
+              }
+
+
             console.log("Predictions: ", predictions);
             model.renderPredictions(predictions, canvas, context, video, props.setInputCoordiantes)
             requestAnimationFrame(runDetection);

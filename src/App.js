@@ -8,6 +8,8 @@ const[isTracking,setIsTracking]=useState(false)
 const[inputCoordiantes,setInputCoordiantes]=useState({
   radius:0
 })
+
+//radius we get from the handtrack is changed into z coordinate
 const inputCoordiantesLimits = {
   radius: {
     max:368,
