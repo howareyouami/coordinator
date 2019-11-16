@@ -1,7 +1,9 @@
 import React, {useEffect,useState} from 'react';
-import './App.css';
 var THREE = require('three');
 
+/*
+ * Convert2dTo3d is used to display in 3d
+ */
 function ThreeJsComponent(props) {
 const [ourSourceSphere, setOurSourceSphere]=useState(null)
 useEffect(()=>{
@@ -51,15 +53,14 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(ourSourceSphere){
-    debugger;
-    ourSourceSphere.position.set(0,0,props.outputCoordiantes.z||0)
+    ourSourceSphere.position.set(props.coordiantes.x,props.coordiantes.y,props.coordiantes.z)
   }
-}, [props.outputCoordiantes.z])
+}, [props.coordiantes.z,props.coordiantes.x,props.coordiantes.y])
 
 
   return (
     <div>
-        <h1>THREE</h1>
+        <h1>ThreeJsComponent</h1>
         <div id="threejsarea"></div>
     </div>
   );
