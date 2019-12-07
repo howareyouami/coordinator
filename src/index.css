@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+}
+
+.base-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-start{
+    background-color: red;
+    color: white;
+}
+
+.tracking-canvas{
+    height: 150px;
+    bottom: 10px;
+    left: 10px;
+    position: absolute;
+    border: 1px solid white;
+}

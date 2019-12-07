@@ -33,12 +33,14 @@ function Convert2dTo3d() {
   };
 
   return (
-    <div>
-      <button onClick={() => setVideoStarted(!videoStarted)}>
+    <div className="base-container">
+      <button className="button-start" onClick={() => setVideoStarted(!videoStarted)}>
         {videoStarted ? "STOP" : "START"}
       </button>
-      {videoStarted && <TrackingComponent onCoordiantesChange={onCoordiantesChange} />}
-      {videoStarted && <ThreeJsComponent coordiantes={convertCoordinatesForThreeJs()} />}
+      <div>
+        {videoStarted && <TrackingComponent onCoordiantesChange={onCoordiantesChange} />}
+        {videoStarted && <ThreeJsComponent coordiantes={convertCoordinatesForThreeJs()} />}
+      </div>
     </div>
   );
 }

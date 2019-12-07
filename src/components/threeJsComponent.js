@@ -13,6 +13,7 @@ useEffect(()=>{
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.getElementById("threejsarea").appendChild( renderer.domElement );
+    renderer.domElement.id = 'three-canvas'
 
    // var texture = new THREE.TextureLoader().load( 'texture/square.png' );
 
@@ -60,7 +61,7 @@ useEffect(()=>{
 
   return (
     <div>
-        <h1>ThreeJsComponent</h1>
+        {/* <h1>ThreeJsComponent</h1> */}
         <div id="threejsarea"></div>
     </div>
   );

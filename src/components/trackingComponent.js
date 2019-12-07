@@ -66,14 +66,14 @@ function TrackingComponent(props) {
 
   return (
     <div>
-      <h1>TrackingComponent</h1>
-      <div id="updatenote"> loading model ..</div>
+      {/* <h1>TrackingComponent</h1> */}
+      <div id="updatenote" style={{display:"none"}}> loading model ..</div>
       <video
         autoPlay="autoplay"
         id="myvideo"
         style={{ display: "none", width: "100%", height: "100%" }}
       ></video>
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" className="tracking-canvas"></canvas>
     </div>
   );
 }
